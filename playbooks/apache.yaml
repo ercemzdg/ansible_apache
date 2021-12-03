@@ -11,6 +11,14 @@
         state: latest
       register: apache_install
 
+    - name: copy application files
+      copy:
+       src: ../app/index.html
+       dest: /var/www/html/
+       owner: apache
+       group: apache
+       mode: '0644'
+
     - name: start and enable httpd
       when:
         - apache_install succeeded
