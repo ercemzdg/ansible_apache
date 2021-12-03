@@ -18,11 +18,12 @@
        owner: apache
        group: apache
        mode: '0644'
+      register: 
 
     - name: start and enable httpd
       when:
         - apache_install succeeded
       systemd: 
         name: httpd
-        state: started
+        state: restarted
         enabled: yes
