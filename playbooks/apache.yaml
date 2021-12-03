@@ -1,0 +1,20 @@
+---
+- name: Install apache
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: latest version Apache
+      when:
+        - ansible_distribution == "CentOS"
+      yum: 
+        name: httpd
+        state: latest
+      register: apache_install
+
+    - name: start and enable httpd
+      when:
+        - apache_install succeeded
+      systemd: 
+        name: httpd
+        state: started
+        enabled: yes
